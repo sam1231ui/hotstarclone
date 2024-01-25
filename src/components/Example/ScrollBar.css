@@ -1,0 +1,32 @@
+.horizontal-scroll-container {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.horizontal-scroll{
+  position: relative;
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.scroll-content {
+  display: inline-flex;
+  overflow: auto;
+  transition: 0.3s ease-in-out;
+}
+
+.tag{
+  position: absolute;
+  top: 0px;
+  left: 30px;
+  font-size:22px;
+  letter-spacing: 2px;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
