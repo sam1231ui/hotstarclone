@@ -25,12 +25,12 @@ export function NavBar (){
     // handle click on login and logout
     const handleClick = () => {
         if(status === "Login"){
-            navigate('/')
+            navigate('/login')
         }
         else{
             localStorage.removeItem('my-key')
             notify()
-            navigate('/home')
+            navigate('/')
         }
     }
 

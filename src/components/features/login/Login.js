@@ -55,7 +55,7 @@ export default  function Login(){
     
     localStorage.setItem('my-key', "logged")
     notify()
-    navigate("/home");
+    navigate("/");
   };
 
 
@@ -76,10 +76,9 @@ export default  function Login(){
                 {!logged ? <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <div >
                       <TextField
-                        className='field bg-white'
+                        className='field bg-white w-100'
                         margin="normal"
                         required
-                        fullWidth
                         error = {email.length === 0 || (emailPattern.test(email)) ? false : true}
                         id="email"
                         label="Email Address"
@@ -91,10 +90,9 @@ export default  function Login(){
                       
                       </div>
                       <TextField
-                        className='field bg-white'
+                        className='field bg-white w-100' 
                         margin="normal"
                         required
-                        fullWidth
                         name="password"
                         label="Password"
                         type="password"
@@ -106,7 +104,6 @@ export default  function Login(){
                         <Button
                           className="login-btn btn btn-primary"
                           type="submit"
-                          fullWidth
                           variant="contained"
                           sx={{ mt: 3, mb: 2 }}
                           disabled={!isFormValid}
@@ -138,7 +135,7 @@ const Background = styled.div`
   img {
     width: 100vw;
     height: 100vh;
-    @media (max-width: 768px) {
+    @media (full-width: 768px) {
       width: initial;
     }
   }

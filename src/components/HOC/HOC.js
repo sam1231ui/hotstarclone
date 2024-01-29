@@ -14,7 +14,6 @@ export default function HOC(WrappedComponent, entity) {
         }
     }
     fetchData = async () => {
-        // debugger
         try {
     
           const { data } = await TMDB.get(`${entity}`,{

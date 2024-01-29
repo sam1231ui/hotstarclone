@@ -49,7 +49,7 @@ export default function DisplayCards() {
   const DisplayItemData = displayData.map((item) => { 
     return ( 
         <div className="col-lg-2 col-md-6 p-4" key={item.id}>
-            <div className="card main-card p-3">
+            <div className="card main-card p-2">
                 <HoverVideoPlayer
                             key={item.id}
                             className='hovervideoplayer'

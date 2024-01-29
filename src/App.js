@@ -19,8 +19,8 @@ function App() {
         <ToastContainer/>
           <NavBar/>
           <Routes>
-            <Route exact path ="/" element={<Login/>}/>
-            <Route exact path ="/home" element={<HomePage/>}/>
+            <Route exact path ="/login" element={<Login/>}/>
+            <Route exact path ="/" element={<HomePage/>}/>
             <Route path='/detail/:id' element={<Detail/>}/> 
           </Routes>
         </BrowserRouter>
