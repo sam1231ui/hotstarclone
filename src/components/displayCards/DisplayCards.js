@@ -5,7 +5,6 @@ import video2 from '../videos/geographic.mp4'
 import video3 from '../videos/marvel.mp4'
 import video4 from '../videos/pixar.mp4'
 import video5 from '../videos/star-wars.mp4'
-
 import image1 from '../pictures/viewers-disney.png'
 import image2 from '../pictures/viewers-national.png'
 import image3 from '../pictures/viewers-marvel.png'
@@ -16,6 +15,7 @@ import image5 from '../pictures/viewers-starwars.png'
 
 export default function DisplayCards() {
 
+    // data array
     const displayData = [
         {
             id: '1',
@@ -67,16 +67,12 @@ export default function DisplayCards() {
             </div>
         </div>
       
-    ); 
-}); 
-
-
+        ); 
+    }); 
 
   return (
-
     <div className="row">
         {DisplayItemData}         
     </div>
-
   )
 }

@@ -69,7 +69,7 @@ export default function SlideShow() {
             onExiting={() => setAnimation(true)} 
         > 
         <div className="carousel-item active">
-            <img src={item.src} className="d-block w-100" alt="..."/>
+            <img src={item.src} className="img-fluid" alt="..."/>
         </div>
         </CarouselItem> 
       

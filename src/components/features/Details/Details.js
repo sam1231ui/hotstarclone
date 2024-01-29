@@ -2,113 +2,98 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import styled from "styled-components";
 import play from '../../pictures/play-icon-black.png';
-import play1 from '../../pictures/play-icon-white.png';
 import grp from '../../pictures/group-icon.png';
-import { FETCH_USER_ERROR, FETCH_USER_REQUEST, FETCH_USER_SUCCESS, DRAG_CHILD, ADDED } from './DetailsSlice';
-import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 
 
 
 
-function Detail(props){
+function Detail(props) {
+
+  
+    const { id } = useParams();
+    console.log(id)
+    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=d266ddfd5671ae6c7ffd466d6764cec1`
+
+    const [data, setData] = React.useState(null);
+    const [display, setDisplay] = React.useState(false);
      
-    const poster = `https://image.tmdb.org/t/p/w600_and_h900_bestv2/${props.item.poster_path}`
+  
+    const fetchData = async () => {
+      const response = await axios.get(url);
+      setData(response.data);
+      setDisplay(true)
+     };
 
+    React.useEffect( () => {
+      fetchData()
+    }, []);
+  
+    // if (!data) return null;
 
-    console.log(props)
+    console.log(data)
+
+     
+    
+
+    
 
 
     return(
         <>
-            <div className="container-fluid">
-            <Background>
-                <img alt="..." src={poster} />
-            </Background>
-            <ImageTitle>
-                <h1>props.item.original_title</h1>
-            </ImageTitle>
+       {display && <div className="container-fluid">
+            {/* <Background>
+                <img alt="..." src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${data.poster_path}`} />
+            </Background> */}
+          <div className='row p-3'>
+              <div className='col-lg-6'>
+                <img alt="..." src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${data.poster_path}`}  className='img-thumbnail'/>
+              </div>
+              <div className='col-lg-6'>
+                 <Titlle>{data.title}</Titlle>
+             
+            <SubTitle>{data.tagline}</SubTitle>
+            <SubTitle className=''>{data.release_date} </SubTitle>
+            <SubTitle className=''>{data.runtime} min</SubTitle>
+            <Description className=''>{data.overview}</Description>
+          
+           
+              <div className='p-3'>
+                <img src={grp} alt="" />
+                <h4>{data.popularity}</h4>
+              </div>
+              <div className='p-3'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
+                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
+              </svg><h4>{data.budget}$</h4>
+              </div>
 
-            <ContentMeta>
-        <Controls>
-          <Player>
-            <img src={play} alt="" />
-            <span>Play</span>
-          </Player>
-          <Trailer>
-            <img src={play1} alt="" />
-            <span>Trailer</span>
-          </Trailer>
-          <AddList>
-            <span />
-            <span />
-          </AddList>
-          <GroupWatch>
-            <div>
-              <img src={grp} alt="" />
+              <div className='mt-3 pt-3'>
+              <Player className='p-3'>
+                <img src={play} alt="" />
+                <a href={data.homepage}>Visit website</a>
+              </Player>
+              </div>
             </div>
-          </GroupWatch>
-        </Controls>
-        <SubTitle>{props.itemoriginal_language}</SubTitle>
-        <Description>{props.item.overview}</Description>
-      </ContentMeta>
-
-            </div>
+          </div>
+      </div>}
         </>
-    )
+
+     )
 }
 
-const Background = styled.div`
-  left: 0px;
-  position: fixed;
-  right: 0px;
-  top: 0px;
-  z-index: -1;
-  img {
-    width: 100vw;
-    height: 100vh;
-    @media (max-width: 768px) {
-        background-size:cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
-    @media (max-width:300px){
-        width:100%;
-    }
+
+const Titlle = styled.h1`
+  font-size: 50px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: rgb(249, 249, 249);
+  @media (max-width: 768px) {
+    font-size: 35px;
   }
 `;
-
-
-const ImageTitle = styled.div`
-  align-items: flex-end;
-  display: flex;
-  -webkit-box-pack: start;
-  justify-content: flex-start;
-  margin: 0px auto;
-  height: 30vw;
-  min-height: 170px;
-  padding-bottom: 24px;
-  width: 100%;
-  img {
-    max-width: 600px;
-    min-width: 200px;
-    width: 35vw;
-  }
-`;
-
-
-const ContentMeta = styled.div`
-  max-width: 874px;
-`;
-
-const Controls = styled.div`
-  align-items: center;
-  display: flex;
-  flex-flow: row nowrap;
-  margin: 24px 0px;
-  min-height: 56px;
-`;
-
+ 
 const Player = styled.button`
   font-size: 15px;
   margin: 0px 22px 0px 0px;
@@ -142,59 +127,6 @@ const Player = styled.button`
   }
 `;
 
-const Trailer = styled(Player)`
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgb(249, 249, 249);
-  color: rgb(249, 249, 249);
-`;
-
-const AddList = styled.div`
-  margin-right: 16px;
-  height: 44px;
-  width: 44px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 50%;
-  border: 2px solid white;
-  cursor: pointer;
-  span {
-    background-color: rgb(249, 249, 249);
-    display: inline-block;
-    &:first-child {
-      height: 2px;
-      transform: translate(1px, 0px) rotate(0deg);
-      width: 16px;
-    }
-    &:nth-child(2) {
-      height: 16px;
-      transform: translateX(-8px) rotate(0deg);
-      width: 2px;
-    }
-  }
-`;
-
-const GroupWatch = styled.div`
-  height: 44px;
-  width: 44px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  background: white;
-  div {
-    height: 40px;
-    width: 40px;
-    background: rgb(0, 0, 0);
-    border-radius: 50%;
-    img {
-      width: 100%;
-    }
-  }
-`;
-
 const SubTitle = styled.div`
   color: rgb(249, 249, 249);
   font-size: 15px;
@@ -206,7 +138,7 @@ const SubTitle = styled.div`
 
 const Description = styled.div`
   line-height: 1.4;
-  font-size: 20px;
+  font-size: 30px;
   padding: 16px 0px;
   color: rgb(249, 249, 249);
   @media (max-width: 768px) {
