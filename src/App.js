@@ -8,7 +8,7 @@ import Detail from './components/features/Details/Details';
 
 
 
- 
+
 
 
 function App() {

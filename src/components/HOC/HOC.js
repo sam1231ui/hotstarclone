@@ -58,8 +58,6 @@ export default function HOC(WrappedComponent, entity) {
                             <WrappedComponent allMovies = {this.state.tmdbData}></WrappedComponent>
                         </InfiniteScroll>
                     </div>
-                    {/* <button onClick={() => handleMouseClickScroll('left')}>Scroll Left</button>
-                    <button onClick={() => handleMouseClickScroll('right')}>Scroll Right</button> */}
                 </div>
             </>
         )

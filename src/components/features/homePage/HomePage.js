@@ -3,16 +3,19 @@ import SlideShow from '../slideShow/SlideShow';
 import DisplayCards from '../../displayCards/DisplayCards';
 import ContinueWatch from '../movies/ContinueWatch';
 import { ToastContainer } from 'react-toastify';
+import Upcoming from '../movies/Upcoming'
 
 
 // Lazy loading
-const Upcoming = React.lazy(() => import ('../movies/Upcoming'))
-const TopRated = React.lazy(() => import ('../movies/TopRated'))
-const Popular = React.lazy(() => import ('../movies/PopularMoviesScroll'))
+// const Upcoming = React.lazy(() => delayForDemo(import ('../movies/Upcoming')))
+const TopRated = React.lazy(() => delayForDemo(import ('../movies/TopRated')))
+const Popular = React.lazy(() => delayForDemo(import ('../movies/PopularMoviesScroll')))
 
 
 
 const Home = () =>{
+
+    
 
     // to check if user is logged
     const [renderContnent, setRenderContent] = React.useState("");
@@ -50,9 +53,17 @@ const Home = () =>{
             <h4 className="movie-heading p-3">Upcoming</h4>
                 <Upcoming/>
         </Suspense>
+     
         </div>
     </>
     )
 }
 
 export default Home;
+
+// Add a fixed delay so you can see the loading state
+function delayForDemo(promise) {
+    return new Promise(resolve => {
+      setTimeout(resolve, 3000);
+    }).then(() => promise);
+  }
